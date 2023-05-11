@@ -2,12 +2,10 @@ syntax = "proto3";
 
 package usermgmt;
 
-option go_package = "github.com/ajalck/microservice_sample1;go-usermgmt-grpc";
+option go_package = "/protos";
 
 service UserManagement {
-    rpc CreateUser (NewUser) returns (User){
-
-    }
+    rpc CreateUser (NewUser) returns (User){}
 }
 
 message NewUser{
