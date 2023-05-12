@@ -20,7 +20,7 @@ type UserManagementServer struct {
 }
 
 func NewUserManagementServer() *UserManagementServer {
-	return &UserManagementServer{}
+	return &UserManagementServer{user_list: &pb.UserList{Users: []*pb.User{}}}
 }
 
 func (s *UserManagementServer) CreateUser(ctx context.Context, in *pb.NewUser) (*pb.User, error) {
@@ -39,14 +39,14 @@ func (s *UserManagementServer) GetUsers(ctx context.Context, in *pb.GetUsersPara
 }
 
 func main() {
-	NewUserManagementServer()
+	srv := NewUserManagementServer()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen :%v", err)
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterUserManagementServer(s, &UserManagementServer{})
+	pb.RegisterUserManagementServer(s, srv)
 	log.Printf("server listening at :%v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
