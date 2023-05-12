@@ -36,4 +36,11 @@ NAME :%s
 AGE :%d
 ID :%d`, res.GetName(), res.GetAge(), res.GetId())
 	}
+
+	params := &pb.GetUsersParams{}
+	res, err := c.GetUsers(ctx, params)
+	if err != nil {
+		log.Fatalf("could not retrieve users: %v", err)
+	}
+	log.Println("USER LIST :\n", res)
 }
