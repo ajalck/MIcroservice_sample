@@ -19,8 +19,8 @@ type UserManagementServer struct {
 	user_list *pb.UserList
 }
 
-func NewUserManagementServer(userlist *pb.UserList) *UserManagementServer {
-	return &UserManagementServer{user_list: userlist}
+func NewUserManagementServer() *UserManagementServer {
+	return &UserManagementServer{}
 }
 
 func (s *UserManagementServer) CreateUser(ctx context.Context, in *pb.NewUser) (*pb.User, error) {
@@ -39,6 +39,7 @@ func (s *UserManagementServer) GetUsers(ctx context.Context, in *pb.GetUsersPara
 }
 
 func main() {
+	NewUserManagementServer()
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen :%v", err)
